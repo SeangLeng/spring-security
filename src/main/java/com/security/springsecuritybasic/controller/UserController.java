@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @GetMapping("/user-homepage")
+    @GetMapping("/userHomepage")
     public String userHomepage(){
         return "this is the user language !!";
     }
-
     @GetMapping("/feed")
     public String userFeed(){
         return "This is the user feed !!";

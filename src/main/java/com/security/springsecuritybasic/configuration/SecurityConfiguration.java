@@ -17,24 +17,27 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
     // set up user credential
-    @Bean
-    public InMemoryUserDetailsManager userDetailService() {
-        UserDetails user = User.withUsername("leng").password("12345").roles("USER").build();
-        UserDetails user2 = User.withUsername("jenzy").password("1234").roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(user, user2);
-    }
-    // configuration for the security
 
+    // in memory is mainly for testing.
+    // h2 -> in memory
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailService() {
+//        UserDetails user = User.withUsername("leng").password("12345").roles("USER").build();
+//        UserDetails user2 = User.withUsername("jenzy").password("1234").roles("ADMIN").build();
+//        return new InMemoryUserDetailsManager(user, user2);
+//    }
+//
+//    // configuration for the security
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/admin/**")
-                .hasRole("ADMIN")
-                .requestMatchers("user/**")
+                .requestMatchers("/homepage", "/feed", "/email/**")
+                .permitAll()
+                .requestMatchers("/user/**")
                 .hasRole("USER")
-                .requestMatchers("/home/**")
-                .anonymous()
+                .requestMatchers("/admin/**")
+                .hasRole("AMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -53,4 +56,5 @@ public class SecurityConfiguration {
     public NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
+
 }
