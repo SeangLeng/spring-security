@@ -1,4 +1,4 @@
-package com.security.springsecuritybasic.configuration;
+package com.security.springsecuritybasic.controller;
 
 import com.security.springsecuritybasic.service.MailingService;
 import lombok.RequiredArgsConstructor;
